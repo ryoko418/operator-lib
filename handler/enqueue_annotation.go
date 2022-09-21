@@ -17,6 +17,7 @@ package handler
 import (
 	"fmt"
 	"strings"
+        "log"
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
@@ -119,6 +120,7 @@ func (e *EnqueueRequestForAnnotation) Generic(evt event.GenericEvent, q workqueu
 
 // getAnnotationRequests checks if the provided object has the annotations so as to enqueue the reconcile request.
 func (e *EnqueueRequestForAnnotation) getAnnotationRequests(object metav1.Object) (bool, reconcile.Request) {
+	log.Printf("getAnnotationRequests")
 	if len(object.GetAnnotations()) == 0 {
 		return false, reconcile.Request{}
 	}
